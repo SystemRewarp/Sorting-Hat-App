@@ -1,9 +1,18 @@
 import streamlit as st
 import pickle
+import traceback
 
-#Adding trained model into program
-model = pickle.load(open("sorting_hat_model.pkl", "rb"))
-house_names = pickle.load(open("house_names.pkl", "rb"))
+try:
+    with open("sorting_hat_model.pkl", "rb") as f:
+        model = pickle.load(f)
+
+    with open("house_names.pkl", "rb") as f:
+        house_names = pickle.load(f)
+
+except Exception as e:
+    st.error(type(e).__name__)
+    st.code(traceback.format_exc())
+    st.stop()
  
 
 page_element = """
